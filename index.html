@@ -6,60 +6,60 @@
     <title>Birthday Gift Reveal</title>
     <style>
         body {
-            text-align: center;
             font-family: Arial, sans-serif;
-            background-color: #ffebcd;
+            text-align: center;
+            background-color: #ffcccb;
         }
         #countdown {
             font-size: 24px;
             margin-top: 20px;
         }
-        #pdfReveal {
+        #gift {
             display: none;
-            margin-top: 30px;
+            margin-top: 20px;
         }
-        .animation {
-            width: 150px;
-            height: 150px;
-            background-color: #ffcc00;
-            border-radius: 50%;
-            display: inline-block;
-            position: relative;
-            animation: bounce 1s infinite;
+        .shinchan {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            animation: bounce 2s infinite alternate, move 5s linear infinite;
         }
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        @keyframes move {
+            0% { left: 0; }
+            100% { left: 100%; }
         }
     </style>
 </head>
 <body>
-    <h1>🎂 Happy Birthday! 🎂</h1>
-    <p>Your surprise gift will be revealed soon!</p>
-    <div id="countdown"></div>
-    <div class="animation"></div>
-    <div id="pdfReveal">
-        <p>🎁 Surprise! Click below to view your gift:</p>
-        <a href="gift.pdf" target="_blank">Open Gift</a>
+    <h1>Birthday Gift Reveal</h1>
+    <p id="countdown"></p>
+    <div id="gift">
+        <h2>Surprise! 🎁</h2>
+        <a href="gift.pdf" download>Click here to get your gift</a>
     </div>
     
+    <img src="shinchan.png" alt="Shin Chan" class="shinchan">
+
     <script>
         function updateCountdown() {
-            const releaseDate = new Date("March 20, 2025 00:00:00").getTime();
+            const targetDate = new Date("March 20, 2025 00:00:00").getTime();
             const now = new Date().getTime();
-            const difference = releaseDate - now;
+            const difference = targetDate - now;
             
             if (difference <= 0) {
-                document.getElementById("countdown").innerHTML = "🎉 It's time! 🎉";
-                document.querySelector(".animation").style.display = "none";
-                document.getElementById("pdfReveal").style.display = "block";
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("gift").style.display = "block";
             } else {
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-                
-                document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                document.getElementById("countdown").innerText = `Gift unlocks in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
         }
         setInterval(updateCountdown, 1000);
