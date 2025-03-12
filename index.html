@@ -6,64 +6,66 @@
     <title>Birthday Gift Reveal</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffcccb;
+            font-family: Arial, sans-serif;
+            background-color: #ffe4e1;
         }
-        #countdown {
+        .countdown {
             font-size: 24px;
             margin-top: 20px;
         }
-        #gift {
-            display: none;
-            margin-top: 20px;
+        .container {
+            position: relative;
+            height: 200px;
+            margin-top: 50px;
         }
-        .shinchan {
+        .animal {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100px;
-            animation: bounce 2s infinite alternate, move 5s linear infinite;
+            width: 80px;
+            animation: bounce 2s infinite ease-in-out;
         }
         @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-50px); }
         }
-        @keyframes move {
-            0% { left: 0; }
-            100% { left: 100%; }
+        #reveal {
+            display: none;
+            font-size: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Birthday Gift Reveal</h1>
-    <p id="countdown"></p>
-    <div id="gift">
-        <h2>Surprise! 🎁</h2>
-        <a href="gift.pdf" download>Click here to get your gift</a>
+    <h1>🎁 Birthday Gift Reveal 🎁</h1>
+    <p class="countdown" id="countdown"></p>
+    <div class="container">
+        <img src="https://i.imgur.com/BhGxwM8.png" class="animal" style="left: 20%; animation-delay: 0s;"> <!-- Cat -->
+        <img src="https://i.imgur.com/UXKagZp.png" class="animal" style="left: 40%; animation-delay: 0.5s;"> <!-- Dog -->
+        <img src="https://i.imgur.com/zx3OV1y.png" class="animal" style="left: 60%; animation-delay: 1s;"> <!-- Rabbit -->
     </div>
+    <a id="reveal" href="gift.pdf" target="_blank">🎂 Click here to see your gift! 🎂</a>
     
-    <img src="shinchan.png" alt="Shin Chan" class="shinchan">
-
     <script>
         function updateCountdown() {
-            const targetDate = new Date("March 20, 2025 00:00:00").getTime();
+            const releaseDate = new Date("March 20, 2025 00:00:00").getTime();
             const now = new Date().getTime();
-            const difference = targetDate - now;
+            const timeLeft = releaseDate - now;
             
-            if (difference <= 0) {
-                document.getElementById("countdown").style.display = "none";
-                document.getElementById("gift").style.display = "block";
+            if (timeLeft <= 0) {
+                document.getElementById("countdown").innerText = "The gift is ready!";
+                document.getElementById("reveal").style.display = "block";
             } else {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-                document.getElementById("countdown").innerText = `Gift unlocks in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s left!`;
             }
         }
         setInterval(updateCountdown, 1000);
+        updateCountdown();
     </script>
 </body>
 </html>
+
 
