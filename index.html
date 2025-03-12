@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Gift Reveal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #fbeaff;
+        }
+        #countdown {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d63384;
+        }
+        #reveal {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Surprise! 🎉</h1>
+    <p>Your birthday gift will be revealed in:</p>
+    <p id="countdown"></p>
+    
+    <div id="reveal">
+        <p>🎁 Happy Birthday! Click below to download your gift:</p>
+        <a href="gift.pdf" download>Download Gift 🎂</a>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const revealDate = new Date("March 20, 2025 00:00:00").getTime();
+            const now = new Date().getTime();
+            const timeLeft = revealDate - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("reveal").style.display = "block";
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
