@@ -13,52 +13,67 @@
         }
         #countdown {
             font-size: 24px;
-            font-weight: bold;
             margin-top: 20px;
         }
-        #gift {
+        #revealMessage {
+            display: none;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .bouncing-cat {
             width: 100px;
-            position: relative;
-            animation: bounce 1s infinite;
+            position: absolute;
         }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
         }
-        #reveal {
-            display: none;
+        .images-container {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .images-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Happy Birthday! My lovely babe 😘</h1>
-    <p>Counting down to your surprise...</p>
-    <div id="countdown"></div>
-    <img id="gift" src="https://i.postimg.cc/LXVPPXgf/IMG-3943.jpg" alt="Bouncing Cat">
-    <div id="reveal">
-        <h2>Happy Birthday babe 🎉💖 Hope you will like this gift! Love you https://1drv.ms/b/c/2f5c68b7923dcbc8/EamIjlT4NXRIqAuFcgw7u2QBWdtp5UMgDpYbzPoB1dYy-g?e=dZSsCW</h2>
+    <h1>Birtday Gift Countdown!! My lovely babe 😘</h1>
+    <p id="countdown"></p>
+    <img src="bouncing-cat.gif" class="bouncing-cat">
+    <div id="revealMessage">
+        <p>Happy Birthday babe 🎉💖 Hope you will like this gift! Love you</p>
+        <div class="images-container">
+            <img src="https://i.postimg.cc/LXVPPXgf/IMG-3943.jpg" alt="Lovely Babe 1">
+            <img src="gf_image2.jpg" alt="Lovely Babe 2">
+            <img src="gf_image3.jpg" alt="Lovely Babe 3">
+        </div>
     </div>
     <script>
-        function updateCountdown() {
-            const targetDate = new Date("March 20, 2025 15:26:00 GMT+8").getTime();
+        const targetDate = new Date("March 20, 2025 12:00:00 GMT+8").getTime();
+        const countdownElement = document.getElementById("countdown");
+        const revealMessage = document.getElementById("revealMessage");
+        
+        const countdownInterval = setInterval(() => {
             const now = new Date().getTime();
-            const difference = targetDate - now;
+            const timeLeft = targetDate - now;
 
-            if (difference <= 0) {
-                document.getElementById("countdown").style.display = "none";
-                document.getElementById("gift").style.display = "none";
-                document.getElementById("reveal").style.display = "block";
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                countdownElement.style.display = "none";
+                revealMessage.style.display = "block";
             } else {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-                document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                countdownElement.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
-        }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        }, 1000);
     </script>
 </body>
 </html>
