@@ -3,77 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday! My lovely babe 😘</title>
+    <title>Countdown for your birthday gift! My lovely babe 😘</title>
     <style>
         body {
-            background-color: #ADD8E6;
-            text-align: center;
             font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #AEC6CF; /* Pastel Blue */
             color: black;
         }
         #countdown {
             font-size: 24px;
             margin-top: 20px;
         }
-        #revealMessage {
+        #message {
             display: none;
             font-size: 24px;
+            font-weight: bold;
             margin-top: 20px;
         }
-        .bouncing-cat {
-            width: 100px;
-            position: absolute;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        .images-container {
+        .image-container {
             margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
         }
-        .images-container img {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
+        .image-container img {
+            width: 200px;
+            height: auto;
+            margin: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Birtday Gift Countdown!! My lovely babe 😘</h1>
-    <p id="countdown"></p>
-    <img src="bouncing-cat.gif" class="bouncing-cat">
-    <div id="revealMessage">
+    <h1>Happy Birthday! My lovely babe 😘</h1>
+    <div id="countdown"></div>
+    <div id="message">
         <p>Happy Birthday babe 🎉💖 Hope you will like this gift! Love you</p>
-        <div class="images-container">
-            <img src="https://i.postimg.cc/LXVPPXgf/IMG-3943.jpg" alt="Lovely Babe 1">
-            <img src="gf_image2.jpg" alt="Lovely Babe 2">
-            <img src="gf_image3.jpg" alt="Lovely Babe 3">
+        <div class="image-container">
+            <img src="https://i.postimg.cc/LXVPPXgf/IMG-3943.jpg" alt="Lovely Image 1">
+            <img src="image2.jpg" alt="Lovely Image 2">
+            <img src="image3.jpg" alt="Lovely Image 3">
         </div>
     </div>
     <script>
-        const targetDate = new Date("March 20, 2025 12:00:00 GMT+8").getTime();
-        const countdownElement = document.getElementById("countdown");
-        const revealMessage = document.getElementById("revealMessage");
-        
-        const countdownInterval = setInterval(() => {
-            const now = new Date().getTime();
-            const timeLeft = targetDate - now;
-
-            if (timeLeft <= 0) {
-                clearInterval(countdownInterval);
-                countdownElement.style.display = "none";
-                revealMessage.style.display = "block";
-            } else {
-                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                countdownElement.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-            }
-        }, 1000);
+        function countdown() {
+            const targetDate = new Date("March 20, 2025 12:00:00 GMT+8").getTime();
+            const timer = setInterval(function () {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+                
+                if (difference <= 0) {
+                    clearInterval(timer);
+                    document.getElementById("countdown").style.display = "none";
+                    document.getElementById("message").style.display = "block";
+                } else {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                    document.getElementById("countdown").innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                }
+            }, 1000);
+        }
+        countdown();
     </script>
 </body>
 </html>
