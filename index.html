@@ -3,80 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Birthday Gift Reveal 🎁</title>
+    <title>Happy Birthday! My lovely babe 😘</title>
     <style>
         body {
-            background: url('https://source.unsplash.com/random/1600x900/?fireworks,party') no-repeat center center/cover;
+            background-color: #add8e6;
             text-align: center;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            color: #FFD700;
-            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 20%;
         }
         h1 {
-            font-size: 4rem;
-            text-shadow: 5px 5px 10px red;
+            font-size: 2.5em;
+            color: #ff69b4;
         }
         #countdown {
-            font-size: 3rem;
-            background: rgba(0, 0, 0, 0.7);
-            display: inline-block;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px white;
-        }
-        .gif-container img {
-            width: 200px;
-            margin: 20px;
-            animation: shake 0.5s infinite alternate;
-        }
-        @keyframes shake {
-            from { transform: rotate(-10deg); }
-            to { transform: rotate(10deg); }
-        }
-        .hidden { display: none; }
-        #reveal-link {
-            font-size: 2rem;
-            color: red;
-            text-decoration: none;
+            font-size: 2em;
             font-weight: bold;
-            background: yellow;
-            padding: 15px;
-            border-radius: 20px;
-            box-shadow: 0 0 15px red;
+        }
+        .hidden {
+            display: none;
+        }
+        .reveal {
+            font-size: 1.5em;
+            color: #008000;
+            margin-top: 20px;
+        }
+        .bouncing-gift {
+            width: 100px;
+            position: relative;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
         }
     </style>
 </head>
 <body>
-    <h1>🎆 BIRTHDAY GIFT REVEAL 🎆</h1>
-    <p id="countdown"></p>
-    <div class="gif-container">
-        <img src="https://media.giphy.com/media/l3vR4I95wRu48D2mY/giphy.gif" alt="Dancing Cat">
-        <img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif" alt="Party Dog">
-        <img src="https://media.giphy.com/media/xTiTnxpQ3ghPiB2Hp6/giphy.gif" alt="Jumping Rabbit">
+    <div class="container">
+        <h1>Happy Birthday! My lovely babe 😘</h1>
+        <img src="https://i.imgur.com/OqWZexK.png" class="bouncing-gift" alt="Gift">
+        <div id="countdown"></div>
+        <div id="pdfReveal" class="hidden">
+            <p class="reveal">🎉 Surprise! Click below to open your gift! 🎁</p>
+            <a href="your-file.pdf" target="_blank" class="reveal">Open Your Gift</a>
+        </div>
     </div>
-    <a id="reveal-link" class="hidden" href="gift.pdf" target="_blank">🎁 Click Here for Your Gift! 🎁</a>
-
     <script>
-        function countdown() {
-            const targetDate = new Date('March 20, 2025 00:00:00').getTime();
-            const timer = setInterval(function() {
-                let now = new Date().getTime();
-                let distance = targetDate - now;
-
-                if (distance <= 0) {
-                    clearInterval(timer);
-                    document.getElementById('countdown').innerHTML = "🎉 It's Time! Click the Gift Below! 🎁";
-                    document.getElementById('reveal-link').classList.remove('hidden');
-                } else {
-                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    document.getElementById('countdown').innerHTML = `🎊 ${days}d ${hours}h ${minutes}m ${seconds}s 🎊`;
-                }
-            }, 1000);
+        function updateCountdown() {
+            const targetDate = new Date("March 20, 2025 12:00:00 GMT+8").getTime();
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            if (timeLeft <= 0) {
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("pdfReveal").classList.remove("hidden");
+            } else {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.getElementById("countdown").innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
         }
-        countdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
